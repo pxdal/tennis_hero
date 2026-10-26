@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerBehaviour : MonoBehaviour
+public class PlayerBehaviour : GenericTennisGuyBehaviour
 {
     [Header("Input Actions")]
 
@@ -9,15 +9,6 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField] private string m_downActionName;
     [SerializeField] private string m_hitActionName;
 
-    [Header("Movement Targets")]
-
-    [SerializeField] private Transform m_upperMoveTarget;
-    
-    [SerializeField] private Transform m_lowerMoveTarget;
-
-    [Header("Movement Settings")]
-
-    [SerializeField] private float m_movementLerpRate = 1f;
 
     // private //
 
@@ -26,21 +17,18 @@ public class PlayerBehaviour : MonoBehaviour
     private InputAction m_hitAction;
 
 
-    private Transform m_currentMoveTarget;
-
-
-    void Start()
+    public override void Start()
     {
-        InitInputActions();
+        base.Start();
 
-        m_currentMoveTarget = m_upperMoveTarget;
+        InitInputActions();
     }
 
-    void Update()
+    public override void Update()
     {
+        base.Update();
+        
         CheckMoveInputsAndSetTarget();
-
-        LerpToCurrentTarget();
     }
 
 
@@ -57,19 +45,12 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (m_upAction.WasPressedThisFrame())
         {
-            m_currentMoveTarget = m_upperMoveTarget;
+            SetCurrentTarget(Target.Upper);
         }
 
         if (m_downAction.WasPressedThisFrame())
         {
-            m_currentMoveTarget = m_lowerMoveTarget;
+            SetCurrentTarget(Target.Lower);
         }
-    }
-
-    void LerpToCurrentTarget()
-    {
-        Vector3 newIntermediatePosition = Vector3.Lerp(transform.position, m_currentMoveTarget.position, m_movementLerpRate * Time.deltaTime);
-
-        transform.position = newIntermediatePosition;
     }
 }
