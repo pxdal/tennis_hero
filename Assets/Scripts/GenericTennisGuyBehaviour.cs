@@ -29,6 +29,20 @@ public class GenericTennisGuyBehaviour : MonoBehaviour
 
     // getters + setters //
 
+    public Target GetCurrentTarget()
+    {
+        if(m_currentMoveTarget == m_lowerMoveTarget)
+        {
+            return Target.Lower;
+        } else if(m_currentMoveTarget == m_upperMoveTarget)
+        {
+            return Target.Upper;
+        } else
+        {
+            throw new Exception("current move target transform (" + m_currentMoveTarget + ") is invalid");
+        }
+    }
+
     public void SetCurrentTarget(Target target)
     {
         if(target == Target.Lower)
