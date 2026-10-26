@@ -29,6 +29,7 @@ public class PlayerBehaviour : GenericTennisGuyBehaviour
         base.Update();
         
         CheckMoveInputsAndSetTarget();
+        CheckSwingInput();
     }
 
 
@@ -51,6 +52,14 @@ public class PlayerBehaviour : GenericTennisGuyBehaviour
         if (m_downAction.WasPressedThisFrame())
         {
             SetCurrentTarget(Target.Lower);
+        }
+    }
+
+    void CheckSwingInput()
+    {
+        if (m_hitAction.WasPressedThisFrame())
+        {
+            Swing();
         }
     }
 }
