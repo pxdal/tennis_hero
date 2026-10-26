@@ -100,12 +100,13 @@ public class GameController : MonoBehaviour
                 m_opponent.SetCurrentTarget(GenericTennisGuyBehaviour.Target.Lower);
             }
 
-            if(m_ball.GetProjectedPosition().x >= m_opponentHitBallXPosition)
+            if(m_ball.WouldBeHitIfGuySwung(m_opponent))
             {
+                m_opponent.Swing();
+
                 Transform newTarget = m_player.GetMoveTargetTransform(GenericTennisGuyBehaviour.GetRandomTarget());
 
-                // no reason to check conditions, opponent should always hit
-                m_opponent.ForceHitBall(newTarget);
+                m_opponent.HitBallToTargetIfSwingConditionsAreMet(newTarget);
             }
         } else
         {

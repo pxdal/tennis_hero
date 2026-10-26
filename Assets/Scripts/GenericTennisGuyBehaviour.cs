@@ -50,6 +50,7 @@ public class GenericTennisGuyBehaviour : MonoBehaviour
 
     private float m_lastSwingTime = -1f;
 
+    private bool m_isFrozen = false;
 
     // getters + setters //
 
