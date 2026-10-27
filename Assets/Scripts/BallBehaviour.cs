@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using UnityEngine;
 
 public class BallBehaviour : MonoBehaviour
@@ -12,6 +13,12 @@ public class BallBehaviour : MonoBehaviour
     [SerializeField] private float m_maxSpeed;
 
     [SerializeField] private AnimationCurve m_speedIncreaseCurve;
+
+
+    [Header("Debug")]
+
+    [ReadOnly]
+    [SerializeField] private float m_currentBallSpeed;
 
     // private //
 
@@ -105,6 +112,11 @@ public class BallBehaviour : MonoBehaviour
         
     }
 
+    void Update()
+    {
+        m_currentBallSpeed = GetCurrentFlySpeed();
+    }
+    
     void LateUpdate()
     {
         // run this here so that projected position is constant in Update() for other MonoBehaviours

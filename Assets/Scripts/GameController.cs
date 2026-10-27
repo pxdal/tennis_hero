@@ -23,6 +23,8 @@ public class GameController : MonoBehaviour
 
     [Header("Components")]
 
+    [SerializeField] private ScreenShakeManager m_screenShakeManager;
+
     [SerializeField] private PlayerBehaviour m_player;
     [SerializeField] private OpponentBehaviour m_opponent;
     [SerializeField] private BallBehaviour m_ball;
@@ -31,26 +33,35 @@ public class GameController : MonoBehaviour
 
     [SerializeField] private float m_centerLineHorizontal;
 
-    [Tooltip("Once the ball is past this point, the opponent hits it")]
-    [SerializeField] private float m_opponentHitBallXPosition;
-
     [SerializeField] private float m_hitstopDurationRemainingBeforeOpponentMoves = 0.5f;
 
     [Layer]
     [SerializeField] private int m_swingHitboxLayer;
 
-    [Header("Impact Frame Settings")]
+    [Header("Hitstop Settings")]
 
     [Tooltip("Minimum and maximum impact duration is mapped to this range.  "
      + "Anything below minimum is set to 0, and anything above is clamped to max duration.")]
     public Vector2 impactSpeedRange;
 
-    [Tooltip("Minimum and maximum impact duration.")]
-    [MinMaxSlider(0.0f, 5f)]
-    public Vector2 impactDurationRange;
+    public AnimationCurve impactDurationCurve;
+
+    [Header("Screen Shake Settings")]
+
+    [Tooltip("Controls the magnitude of screen shake relative to the ball speed range given by Impact Speed Range above.")]
+    public AnimationCurve screenShakeCurve;
+
 
     // public properties //
-    
+
+    public ScreenShakeManager ScreenShakeManager
+    {
+        get
+        {
+            return m_screenShakeManager;
+        }
+    }
+
     public PlayerBehaviour Player
     {
         get
@@ -212,9 +223,15 @@ public class HitstopManager
         } else
         {
             Vector2 impactSpeedRange = gameController.impactSpeedRange;
-            Vector2 impactDurationRange = gameController.impactDurationRange;
 
-            m_impactDuration = ball.GetCurrentFlySpeed().MapClamped(impactSpeedRange, impactDurationRange);
+            float t_p = ball.GetCurrentFlySpeed().MapClamped(impactSpeedRange, new(0, 1));
+
+            m_impactDuration = gameController.impactDurationCurve.Evaluate(t_p);
+
+            // do screen shake
+            float t_screenShakeMagnitude = gameController.screenShakeCurve.Evaluate(t_p);
+
+            gameController.ScreenShakeManager.Shake(t_screenShakeMagnitude);
         }
 
         m_hitTime = Time.time;
