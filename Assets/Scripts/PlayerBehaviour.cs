@@ -46,12 +46,12 @@ public class PlayerBehaviour : GenericTennisGuyBehaviour
     {
         if (m_upAction.WasPressedThisFrame())
         {
-            SetCurrentTarget(Target.Upper);
+            SetCurrentMoveTarget(Target.Upper);
         }
 
         if (m_downAction.WasPressedThisFrame())
         {
-            SetCurrentTarget(Target.Lower);
+            SetCurrentMoveTarget(Target.Lower);
         }
     }
 

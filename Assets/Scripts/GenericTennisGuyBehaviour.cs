@@ -93,7 +93,7 @@ public class GenericTennisGuyBehaviour : MonoBehaviour
         }
     }
 
-    public void SetCurrentTarget(Target target)
+    public void SetCurrentMoveTarget(Target target)
     {
         if(target == Target.Lower)
         {
@@ -161,6 +161,25 @@ public class GenericTennisGuyBehaviour : MonoBehaviour
         return m_isSwinging;
     }
 
+    public bool IsFrozen()
+    {
+        return m_isFrozen;
+    }
+
+    public void SetFrozen(bool frozen)
+    {
+        m_isFrozen = frozen;
+    }
+
+    public void Freeze()
+    {
+        SetFrozen(true);
+    }
+
+    public void Unfreeze()
+    {
+        SetFrozen(false);
+    }
 
     // event listeners //
 
@@ -176,7 +195,7 @@ public class GenericTennisGuyBehaviour : MonoBehaviour
 
     public virtual void Update()
     {
-        LerpToCurrentTarget();
+        if(!IsFrozen()) LerpToCurrentTarget();
 
         CheckIfSwingIsOver();
     }
@@ -213,19 +232,23 @@ public class GenericTennisGuyBehaviour : MonoBehaviour
         m_isSwinging = true;    
     }
 
+    public bool AreSwingConditionsMet()
+    {
+        if(!m_isSwinging) return false;
+    
+        return GameController.Instance.Ball.WouldBeHitIfGuySwung(this);
+    }
+
     public void HitBallToTargetIfSwingConditionsAreMet(Transform newTarget)
     {
-        if(!m_isSwinging) return;
-
-        if (GameController.Instance.Ball.WouldBeHitIfGuySwung(this))
+        if (AreSwingConditionsMet())
         {
             ForceHitBall(newTarget);
         }
     }
 
     /// <summary>
-    /// skips collision checks and simply assumes the ball is hit
-    /// this should not be used on the player, but is valid for the opponent
+    /// skips AreSwingConditionsMet() check and simply assumes the ball is hit
     /// </summary>
     public void ForceHitBall(Transform newTarget)
     {

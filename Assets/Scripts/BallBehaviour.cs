@@ -21,9 +21,31 @@ public class BallBehaviour : MonoBehaviour
 
     private int m_numHits = 0;
 
+    private bool m_isFrozen = false;
+
 
     // getters + setters //
     
+    public bool IsFrozen()
+    {
+        return m_isFrozen;
+    }
+
+    public void SetFrozen(bool frozen)
+    {
+        m_isFrozen = frozen;
+    }
+
+    public void Freeze()
+    {
+        SetFrozen(true);
+    }
+
+    public void Unfreeze()
+    {
+        SetFrozen(false);
+    }
+
     public Vector3 GetCurrentDirection()
     {
         // normalize just in case.  doesn't really cost anything these days!
@@ -86,9 +108,9 @@ public class BallBehaviour : MonoBehaviour
     void LateUpdate()
     {
         // run this here so that projected position is constant in Update() for other MonoBehaviours
-        StepToProjectedPosition();
-    
-
+        if(!IsFrozen()){
+            StepToProjectedPosition();
+        }
     }
 
 

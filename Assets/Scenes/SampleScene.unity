@@ -415,6 +415,8 @@ MonoBehaviour:
   m_centerLineHorizontal: -0.67
   m_opponentHitBallXPosition: 3.7
   m_swingHitboxLayer: 3
+  impactSpeedRange: {x: 20, y: 50}
+  impactDurationRange: {x: 0, y: 1}
 --- !u!1 &266364292
 GameObject:
   m_ObjectHideFlags: 0
