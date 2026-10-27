@@ -415,7 +415,7 @@ MonoBehaviour:
   m_centerLineHorizontal: -0.67
   m_opponentHitBallXPosition: 3.7
   m_swingHitboxLayer: 3
-  impactSpeedRange: {x: 20, y: 50}
+  impactSpeedRange: {x: 10, y: 50}
   impactDurationRange: {x: 0, y: 1}
 --- !u!1 &266364292
 GameObject:
@@ -538,7 +538,7 @@ Transform:
   m_GameObject: {fileID: 446884694}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.44, y: -1.22, z: 0}
+  m_LocalPosition: {x: -3.95, y: 0.82, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -558,7 +558,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallBehaviour
   m_baseSpeed: 6
-  m_maxBallHitsUntilFullSpeed: 10
+  m_maxBallHitsUntilFullSpeed: 6
   m_maxSpeed: 100
   m_speedIncreaseCurve:
     serializedVersion: 2
@@ -572,6 +572,15 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0
       outWeight: 0
+    - serializedVersion: 3
+      time: 0.50912714
+      value: 0.11328451
+      inSlope: 0.6515877
+      outSlope: 0.6515877
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
       value: 1
@@ -956,6 +965,10 @@ MonoBehaviour:
   m_upperMoveTarget: {fileID: 1983443829}
   m_lowerMoveTarget: {fileID: 56869578}
   m_movementLerpRate: 20
+  animator: {fileID: 0}
+  m_swingUpTriggerName: 
+  m_swingDownTriggerName: 
+  m_swingStraightTriggerName: 
   m_upActionName: Up
   m_downActionName: Down
   m_hitActionName: Hit
@@ -969,6 +982,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1306753760}
   - component: {fileID: 1306753761}
+  - component: {fileID: 1306753762}
   m_Layer: 0
   m_Name: Opponent
   m_TagString: Untagged
@@ -1011,6 +1025,32 @@ MonoBehaviour:
   m_upperMoveTarget: {fileID: 1994614472}
   m_lowerMoveTarget: {fileID: 1415615}
   m_movementLerpRate: 20
+  animator: {fileID: 1306753762}
+  m_swingUpTriggerName: swing_up
+  m_swingDownTriggerName: swing_down
+  m_swingStraightTriggerName: swing_straight
+--- !u!95 &1306753762
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1306753758}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fc591038a89752048a689eac0673462f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1429755925
 GameObject:
   m_ObjectHideFlags: 0

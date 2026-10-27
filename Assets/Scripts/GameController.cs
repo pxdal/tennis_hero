@@ -34,6 +34,8 @@ public class GameController : MonoBehaviour
     [Tooltip("Once the ball is past this point, the opponent hits it")]
     [SerializeField] private float m_opponentHitBallXPosition;
 
+    [SerializeField] private float m_hitstopDurationRemainingBeforeOpponentMoves = 0.5f;
+
     [Layer]
     [SerializeField] private int m_swingHitboxLayer;
 
@@ -95,11 +97,12 @@ public class GameController : MonoBehaviour
 
     void Start()
     {    
-        m_ball.SetCurrentDirectionFromTargetPosition(m_opponent.GetCurrentMoveTargetTransform());
+        // m_ball.SetCurrentDirectionFromTargetPosition(m_opponent.GetCurrentMoveTargetTransform());
     }
 
 
-    private ImpactFrameManager m_currentImpactFrameManager = null;
+    private HitstopManager m_currentImpactFrameManager = null;
+    private bool m_isHitstopTriggered = false;
 
     void Update()
     {
@@ -110,27 +113,45 @@ public class GameController : MonoBehaviour
             if (m_currentImpactFrameManager.IsDone())
             {
                 m_currentImpactFrameManager = null;
-            } 
+            } else {
+                // if we last a frame
+                m_isHitstopTriggered = true;
+            }
         }
 
         if (m_ball.IsMovingTowardsOpponent())
         {
-            if(m_ball.GetProjectedPosition().y > m_centerLineHorizontal)
+            // in non-hitstop, have reactive behaviour
+            Vector3 t_ballProjectedPosition = m_ball.GetProjectedPosition();
+
+            // otherwise be more predictive
+            if (m_isHitstopTriggered)
             {
-                m_opponent.SetCurrentMoveTarget(GenericTennisGuyBehaviour.Target.Upper);
-            } else
-            {
-                m_opponent.SetCurrentMoveTarget(GenericTennisGuyBehaviour.Target.Lower);
+                t_ballProjectedPosition = m_ball.GetCurrentDirection()*10 + m_ball.transform.position;
             }
 
+            // if we're hitstopping, wait a second just for fun
+            if(m_currentImpactFrameManager == null || m_currentImpactFrameManager.GetHitstopDurationRemaining() < m_hitstopDurationRemainingBeforeOpponentMoves)
+            {
+                if(t_ballProjectedPosition.y > m_centerLineHorizontal)
+                {
+                    m_opponent.SetCurrentMoveTarget(GenericTennisGuyBehaviour.Target.Upper);
+                } else
+                {
+                    m_opponent.SetCurrentMoveTarget(GenericTennisGuyBehaviour.Target.Lower);
+                }
+            }
+            
             if(m_ball.WouldBeHitIfGuySwung(m_opponent))
             {
-                m_opponent.Swing();
+                GenericTennisGuyBehaviour.Target t_swingTarget = GenericTennisGuyBehaviour.GetRandomTarget();
 
-                Transform newTarget = m_player.GetMoveTargetTransform(GenericTennisGuyBehaviour.GetRandomTarget());
+                m_opponent.Swing(t_swingTarget);
+
+                Transform t_targetTransform = m_player.GetMoveTargetTransform(t_swingTarget);
 
                 // we just assume that opponent hit ball (valid assumption because we satisfy every condition)
-                HitBallAs(m_opponent, newTarget);
+                HitBallAs(m_opponent, t_targetTransform);
             }
         } else
         {
@@ -151,7 +172,7 @@ public class GameController : MonoBehaviour
 }
 
 
-public class ImpactFrameManager
+public class HitstopManager
 {
     public GameController gameController;
 
@@ -162,7 +183,7 @@ public class ImpactFrameManager
     private float m_impactDuration = 0f;
     private float m_hitTime = -1f;
 
-    public ImpactFrameManager(GameController gameController, GenericTennisGuyBehaviour tennisGuy)
+    public HitstopManager(GameController gameController, GenericTennisGuyBehaviour tennisGuy)
     {
         this.gameController = gameController;
         this.tennisGuy = tennisGuy;
@@ -171,6 +192,11 @@ public class ImpactFrameManager
     public bool IsDone()
     {
         return m_isDone;
+    }
+
+    public float GetHitstopDurationRemaining()
+    {
+        return m_hitTime + m_impactDuration - Time.time;
     }
 
     public void InitialHit(Transform target)
@@ -198,7 +224,7 @@ public class ImpactFrameManager
     {
         if(m_isDone) return;
 
-        if(Time.time < m_hitTime + m_impactDuration)
+        if(GetHitstopDurationRemaining() > 0)
         {
             BallBehaviour ball = gameController.Ball;
 

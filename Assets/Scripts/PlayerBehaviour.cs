@@ -59,7 +59,8 @@ public class PlayerBehaviour : GenericTennisGuyBehaviour
     {
         if (m_hitAction.WasPressedThisFrame())
         {
-            Swing();
+            // TODO: give an actual answer here
+            Swing(GetRandomTarget());
         }
     }
 }

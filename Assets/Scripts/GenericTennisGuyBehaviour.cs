@@ -1,11 +1,14 @@
 using System;
+using NaughtyAttributes;
 using UnityEngine;
 
 public class GenericTennisGuyBehaviour : MonoBehaviour
 {
     public enum Target {
         Lower,
-        Upper
+        Upper,
+
+        None
     }
 
     public static Target GetRandomTarget()
@@ -42,6 +45,20 @@ public class GenericTennisGuyBehaviour : MonoBehaviour
     [SerializeField] private float m_movementLerpRate = 1f;
 
 
+    [Header("Animation Settings")]
+
+    public Animator animator;
+
+    [AnimatorParam("animator")]
+    [SerializeField] private string m_swingUpTriggerName;
+    
+    [AnimatorParam("animator")]
+    [SerializeField] private string m_swingDownTriggerName;
+    
+    [AnimatorParam("animator")]
+    [SerializeField] private string m_swingStraightTriggerName;
+
+
     // private //
     
     private Transform m_currentMoveTarget;
@@ -59,7 +76,7 @@ public class GenericTennisGuyBehaviour : MonoBehaviour
         return m_swingHitbox;    
     }
 
-    public Target GetCurrentTarget()
+    public Target GetCurrentMoveTarget()
     {
         if(m_currentMoveTarget == m_lowerMoveTarget)
         {
@@ -84,7 +101,7 @@ public class GenericTennisGuyBehaviour : MonoBehaviour
 
     public Transform GetOppositeMoveTargetTransform()
     {
-        if(GetCurrentTarget() == Target.Lower)
+        if(GetCurrentMoveTarget() == Target.Lower)
         {
             return GetUpperMoveTargetTransform();
         } else
@@ -219,7 +236,7 @@ public class GenericTennisGuyBehaviour : MonoBehaviour
 
     // actions //
 
-    public void Swing()
+    public void Swing(Target target = Target.None)
     {
         if(Time.time < GetNextTimeCanSwing())
         {
@@ -229,7 +246,24 @@ public class GenericTennisGuyBehaviour : MonoBehaviour
 
         m_lastSwingTime = Time.time;
 
-        m_isSwinging = true;    
+        m_isSwinging = true;
+
+        // animate swing
+        if(animator != null)
+        {
+            Target t_moveTarget = GetCurrentMoveTarget();
+
+            if(t_moveTarget == target)
+            {
+                animator.SetTrigger(m_swingStraightTriggerName);
+            } else if(t_moveTarget == Target.Upper)
+            {
+                animator.SetTrigger(m_swingDownTriggerName);
+            } else
+            {
+                animator.SetTrigger(m_swingUpTriggerName);
+            }
+        }
     }
 
     public bool AreSwingConditionsMet()
