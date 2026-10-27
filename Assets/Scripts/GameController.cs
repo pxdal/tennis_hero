@@ -19,6 +19,15 @@ public class GameController : MonoBehaviour
     }
 
 
+    // constants and such //
+
+    public enum GameState
+    {
+        Playing,
+        Lose
+    }
+
+
     // serialized fields //
 
     [Header("Components")]
@@ -37,6 +46,9 @@ public class GameController : MonoBehaviour
 
     [Layer]
     [SerializeField] private int m_swingHitboxLayer;
+
+    [Tooltip("When the ball passes this x pos, the player loses")]
+    [SerializeField] private float m_gameOverVerticalBoundary;
 
     [Header("Hitstop Settings")]
 
@@ -106,16 +118,25 @@ public class GameController : MonoBehaviour
         m_instance = this;
     }
 
-    void Start()
-    {    
-        // m_ball.SetCurrentDirectionFromTargetPosition(m_opponent.GetCurrentMoveTargetTransform());
-    }
-
-
     private HitstopManager m_currentImpactFrameManager = null;
     private bool m_isHitstopTriggered = false;
 
+    private GameState m_currentGameState = GameState.Playing;
+
+
     void Update()
+    {
+        if(m_currentGameState == GameState.Playing)
+        {
+            PlayStateUpdate();
+        } else if(m_currentGameState == GameState.Lose)
+        {
+            LoseStateUpdate();
+        }
+        
+    }
+    
+    void PlayStateUpdate()
     {
         if(m_currentImpactFrameManager != null)
         {
@@ -172,7 +193,11 @@ public class GameController : MonoBehaviour
             }
         }
     }
-    
+
+    void LoseStateUpdate()
+    {
+        
+    }
 
     void HitBallAs(GenericTennisGuyBehaviour tennisGuy, Transform target)
     {
