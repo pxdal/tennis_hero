@@ -22,7 +22,9 @@ public class LoseScreenBehaviour : MonoBehaviour
 
     [Header("Events")]
 
-    public UnityEvent onRestart;
+    public UnityEvent onLose = new();
+
+    public UnityEvent onRestart = new();
 
     // private //
 
@@ -48,6 +50,8 @@ public class LoseScreenBehaviour : MonoBehaviour
         m_isShowing = true;
 
         animator.SetTrigger(m_popUpTriggerKey);
+
+        onLose.Invoke();
     }
 
     void Hide()

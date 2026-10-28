@@ -125,6 +125,10 @@ public class GameController : MonoBehaviour
 
     private GameState m_currentGameState = GameState.Playing;
 
+    public GameState GetCurrentGameState()
+    {
+        return m_currentGameState;
+    }
 
     void Update()
     {
