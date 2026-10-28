@@ -1,19 +1,23 @@
+using System;
+using System.Collections.Generic;
 using NaughtyAttributes;
 using UnityEngine;
+
+[Serializable]
+class BallSpeedData
+{
+    public int numHits;
+
+    public float ballSpeed;
+}
 
 public class BallBehaviour : MonoBehaviour
 {
 
     // public + serialized //
 
-    [SerializeField] private float m_baseSpeed;
-
-    [SerializeField] private int m_maxBallHitsUntilFullSpeed;
-
-    [SerializeField] private float m_maxSpeed;
-
-    [SerializeField] private AnimationCurve m_speedIncreaseCurve;
-
+    [Tooltip("Key is number of hits, value is ball speed.  Any that don't have a value use the ball speed of the previous")]
+    [SerializeField] private List<BallSpeedData> m_ballSpeeds = new();
 
     [Header("Debug")]
 
@@ -33,6 +37,7 @@ public class BallBehaviour : MonoBehaviour
 
     private bool m_isFrozen = false;
 
+    private List<float> m_ballSpeedFullTable = new();
 
     // getters + setters //
     
@@ -94,13 +99,18 @@ public class BallBehaviour : MonoBehaviour
         return m_numHits;    
     }
 
+    public float GetFlySpeedAtNumHits(int numHits)
+    {
+        numHits = Mathf.Clamp(numHits, 0, m_ballSpeedFullTable.Count - 1);
+
+        return m_ballSpeedFullTable[numHits];
+    }
+
     public float GetCurrentFlySpeed()
     {
-        float t_p = (float)GetCurrentNumberOfHits() / m_maxBallHitsUntilFullSpeed;
+        int t_numHits = GetCurrentNumberOfHits();
 
-        float t_speedMultiplier = m_speedIncreaseCurve.Evaluate(t_p);
-
-        return t_speedMultiplier * (m_maxSpeed - m_baseSpeed) + m_baseSpeed;
+        return GetFlySpeedAtNumHits(t_numHits);
     }
 
     // event listeners //
@@ -113,6 +123,8 @@ public class BallBehaviour : MonoBehaviour
     void Start()
     {
         m_positionAtStart = transform.position;
+
+        BuildFullSpeedTable();
     }
 
     void Update()
@@ -147,6 +159,28 @@ public class BallBehaviour : MonoBehaviour
     }
 
     // utils //
+
+    void BuildFullSpeedTable()
+    {
+        int t_last = -1;
+
+        foreach(BallSpeedData speedData in m_ballSpeeds)
+        {
+            int t_index = speedData.numHits;
+            float t_speed = speedData.ballSpeed;
+
+            int t_numMissing = t_index - t_last;
+
+            for(int i = 0; i < t_numMissing-1; i++)
+            {
+                m_ballSpeedFullTable.Add(m_ballSpeedFullTable[^1]);
+            }
+
+            m_ballSpeedFullTable.Add(t_speed);
+
+            t_last = t_index;
+        }
+    }
 
     void StepToProjectedPosition()
     {

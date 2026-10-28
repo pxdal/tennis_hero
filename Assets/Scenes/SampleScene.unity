@@ -636,42 +636,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 463fa4146699adf46a4dfb6c34548a6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallBehaviour
-  m_baseSpeed: 6
-  m_maxBallHitsUntilFullSpeed: 15
-  m_maxSpeed: 500
-  m_speedIncreaseCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.50912714
-      value: 0.11328451
-      inSlope: 0.6515877
-      outSlope: 0.6515877
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  m_ballSpeeds:
+  - numHits: 0
+    ballSpeed: 0
+  - numHits: 1
+    ballSpeed: 12
+  - numHits: 5
+    ballSpeed: 20
+  - numHits: 15
+    ballSpeed: 50
+  - numHits: 21
+    ballSpeed: 100
+  - numHits: 24
+    ballSpeed: 200
   m_currentBallSpeed: 0
 --- !u!61 &446884697
 BoxCollider2D:
