@@ -37,6 +37,8 @@ public class GameController : MonoBehaviour
     [SerializeField] private PlayerBehaviour m_player;
     [SerializeField] private OpponentBehaviour m_opponent;
     [SerializeField] private BallBehaviour m_ball;
+    [SerializeField] private LoseScreenBehaviour m_loseScreen;
+
 
     [Header("General Settings")]
 
@@ -190,13 +192,36 @@ public class GameController : MonoBehaviour
             if (m_player.AreSwingConditionsMet())
             {
                 HitBallAs(m_player, m_opponent.GetOppositeMoveTargetTransform());
+            } else
+            {
+                // check if player loses
+                if(m_ball.transform.position.x < m_gameOverVerticalBoundary)
+                {
+                    GoToLoseState();
+                }
             }
         }
+    }
+
+    void GoToLoseState()
+    {
+        m_loseScreen.Show();
+
+        m_currentGameState = GameState.Lose;    
     }
 
     void LoseStateUpdate()
     {
         
+    }
+
+    public void ResetGame()
+    {
+        m_player.Reset();
+        m_opponent.Reset();
+        m_ball.Reset();
+
+        m_currentGameState = GameState.Playing;
     }
 
     void HitBallAs(GenericTennisGuyBehaviour tennisGuy, Transform target)

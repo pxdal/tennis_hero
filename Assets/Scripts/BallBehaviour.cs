@@ -17,10 +17,13 @@ public class BallBehaviour : MonoBehaviour
 
     [Header("Debug")]
 
+    // NOTE: don't remove, even though vs code says to.  used for debugging
     [ReadOnly]
     [SerializeField] private float m_currentBallSpeed;
 
     // private //
+
+    private Vector3 m_positionAtStart;
 
     private BoxCollider2D m_hitbox;
 
@@ -109,7 +112,7 @@ public class BallBehaviour : MonoBehaviour
 
     void Start()
     {
-        
+        m_positionAtStart = transform.position;
     }
 
     void Update()
@@ -135,6 +138,13 @@ public class BallBehaviour : MonoBehaviour
         m_numHits++;
     }
 
+    public void Reset()
+    {
+        m_numHits = 0;
+        m_currentDirection = Vector3.zero;
+        transform.position = m_positionAtStart;
+        Unfreeze();
+    }
 
     // utils //
 

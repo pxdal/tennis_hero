@@ -266,6 +266,15 @@ public class GenericTennisGuyBehaviour : MonoBehaviour
         }
     }
 
+    public virtual void Reset()
+    {
+        Unfreeze();
+        
+        // TODO: bad hardcoded default
+        SetCurrentMoveTarget(Target.Upper);
+    }
+    
+    
     public bool AreSwingConditionsMet()
     {
         if(!m_isSwinging) return false;
