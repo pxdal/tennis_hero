@@ -37,7 +37,7 @@ public class BallBehaviour : MonoBehaviour
 
     private bool m_isFrozen = false;
 
-    private List<float> m_ballSpeedFullTable = new();
+    private readonly List<float> m_ballSpeedFullTable = new();
 
     // getters + setters //
     
@@ -143,6 +143,20 @@ public class BallBehaviour : MonoBehaviour
 
     // actions //
 
+    public void Teleport(Vector3 newPosition)
+    {
+        transform.position = newPosition;
+    }
+
+    /// <summary>
+    /// NOTE: not delta-corrected
+    /// </summary>
+    /// <param name="amount"></param>
+    public void StepInCurrentDirection(float amount)
+    {
+        transform.position += amount * GetCurrentDirection();
+    }
+    
     public void HitToTarget(Transform newTarget)
     {
         SetCurrentDirectionFromTargetPosition(newTarget);
@@ -189,14 +203,21 @@ public class BallBehaviour : MonoBehaviour
         transform.position = GetProjectedPosition();
     }
 
-    public bool WouldBeHitIfGuySwung(GenericTennisGuyBehaviour tennisPlayer)
+    public bool WouldBeHitIfGuySwung(GenericTennisGuyBehaviour tennisPlayer, out float distanceFromCollider)
     {
+        distanceFromCollider = -1f;
+
+        // NOTE: don't want to swing during hitstop (even though it's technically possible, so this is really a bandaid fix...)
+        if (IsFrozen()) return false;
+
         RaycastHit2D[] boxcastResults = m_hitbox.BoxCastUpToEndpoint(GetProjectedPosition(), 1 << GameController.Instance.SwingHitboxLayer);
 
         foreach(RaycastHit2D boxcastResult in boxcastResults)
         {
             if(tennisPlayer.GetSwingHitbox() == boxcastResult.collider)
             {
+                distanceFromCollider = boxcastResult.distance;
+
                 return true;
             }
         }

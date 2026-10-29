@@ -65,6 +65,9 @@ public class GameController : MonoBehaviour
     [Tooltip("Controls the magnitude of screen shake relative to the ball speed range given by Impact Speed Range above.")]
     public AnimationCurve screenShakeCurve;
 
+    [Header("Debugging")]
+
+    [SerializeField] private bool m_debugAutoMovePlayer = false;
 
     // public properties //
 
@@ -159,51 +162,62 @@ public class GameController : MonoBehaviour
 
         if (m_ball.IsMovingTowardsOpponent())
         {
-            // in non-hitstop, have reactive behaviour
-            Vector3 t_ballProjectedPosition = m_ball.GetProjectedPosition();
-
-            // otherwise be more predictive
-            if (m_isHitstopTriggered)
-            {
-                t_ballProjectedPosition = m_ball.GetCurrentDirection()*10 + m_ball.transform.position;
-            }
-
-            // if we're hitstopping, wait a second just for fun
-            if(m_currentImpactFrameManager == null || m_currentImpactFrameManager.GetHitstopDurationRemaining() < m_hitstopDurationRemainingBeforeOpponentMoves)
-            {
-                if(t_ballProjectedPosition.y > m_centerLineHorizontal)
-                {
-                    m_opponent.SetCurrentMoveTarget(GenericTennisGuyBehaviour.Target.Upper);
-                } else
-                {
-                    m_opponent.SetCurrentMoveTarget(GenericTennisGuyBehaviour.Target.Lower);
-                }
-            }
-            
-            if(m_ball.WouldBeHitIfGuySwung(m_opponent))
-            {
-                GenericTennisGuyBehaviour.Target t_swingTarget = GenericTennisGuyBehaviour.GetRandomTarget();
-
-                m_opponent.Swing(t_swingTarget);
-
-                Transform t_targetTransform = m_player.GetMoveTargetTransform(t_swingTarget);
-
-                // we just assume that opponent hit ball (valid assumption because we satisfy every condition)
-                HitBallAs(m_opponent, t_targetTransform);
-            }
+            RunOpponentLogic(m_opponent, m_player);
         } else
         {
-            if (m_player.AreSwingConditionsMet())
+            if (m_debugAutoMovePlayer)
             {
-                HitBallAs(m_player, m_opponent.GetOppositeMoveTargetTransform());
+                RunOpponentLogic(m_player, m_opponent);
             } else
             {
-                // check if player loses
-                if(m_ball.transform.position.x < m_gameOverVerticalBoundary)
+                // normal movement
+                if (m_player.AreSwingConditionsMet(out float distanceFromCollider))
                 {
-                    GoToLoseState();
+                    HitBallAs(m_player, m_opponent.GetOppositeMoveTargetTransform(), distanceFromCollider);
                 }
             }
+
+            // check if player loses
+            if(m_ball.transform.position.x < m_gameOverVerticalBoundary)
+            {
+                GoToLoseState();
+            }
+        }
+    }
+
+    void RunOpponentLogic(GenericTennisGuyBehaviour swinger, GenericTennisGuyBehaviour receiver)
+    {
+        // in non-hitstop, have reactive behaviour
+        Vector3 t_ballProjectedPosition = m_ball.GetProjectedPosition();
+
+        // otherwise be more predictive
+        if (m_isHitstopTriggered)
+        {
+            t_ballProjectedPosition = m_ball.GetCurrentDirection()*10 + m_ball.transform.position;
+        }
+
+        // if we're hitstopping, wait a second just for fun
+        if(m_currentImpactFrameManager == null || m_currentImpactFrameManager.GetHitstopDurationRemaining() < m_hitstopDurationRemainingBeforeOpponentMoves)
+        {
+            if(t_ballProjectedPosition.y > m_centerLineHorizontal)
+            {
+                swinger.SetCurrentMoveTarget(GenericTennisGuyBehaviour.Target.Upper);
+            } else
+            {
+                swinger.SetCurrentMoveTarget(GenericTennisGuyBehaviour.Target.Lower);
+            }
+        }
+        
+        if(m_ball.WouldBeHitIfGuySwung(swinger, out float distanceFromCollider))
+        {
+            GenericTennisGuyBehaviour.Target t_swingTarget = GenericTennisGuyBehaviour.GetRandomTarget();
+
+            swinger.TrySwing(t_swingTarget);
+
+            Transform t_targetTransform = receiver.GetMoveTargetTransform(t_swingTarget);
+
+            // NOTE: verifies that the swing wasn't on cooldown
+            if(swinger.IsSwinging()) HitBallAs(swinger, t_targetTransform, distanceFromCollider);
         }
     }
 
@@ -228,11 +242,11 @@ public class GameController : MonoBehaviour
         m_currentGameState = GameState.Playing;
     }
 
-    void HitBallAs(GenericTennisGuyBehaviour tennisGuy, Transform target)
+    void HitBallAs(GenericTennisGuyBehaviour tennisGuy, Transform target, float distanceFromCollider)
     {
         m_currentImpactFrameManager = new(this, tennisGuy);
 
-        m_currentImpactFrameManager.InitialHit(target);
+        m_currentImpactFrameManager.InitialHit(target, distanceFromCollider);
     }
 }
 
@@ -264,9 +278,9 @@ public class HitstopManager
         return m_hitTime + m_impactDuration - Time.time;
     }
 
-    public void InitialHit(Transform target)
+    public void InitialHit(Transform target, float distanceFromCollider)
     {
-        tennisGuy.ForceHitBall(target);
+        tennisGuy.ForceHitBall(target, distanceFromCollider);
 
         BallBehaviour ball = gameController.Ball;
 
@@ -289,6 +303,9 @@ public class HitstopManager
         }
 
         m_hitTime = Time.time;
+
+        // ensure update is called once immediately to prevent frame delays causing problems
+        Update();
     }
 
     public void Update()

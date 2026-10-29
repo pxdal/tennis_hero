@@ -1,4 +1,5 @@
 using System;
+using System.Buffers.Text;
 using NaughtyAttributes;
 using UnityEngine;
 
@@ -31,7 +32,6 @@ public class GenericTennisGuyBehaviour : MonoBehaviour
     [SerializeField] private float m_swingCooldownSeconds;
 
     [SerializeField] private float m_swingDurationSeconds = 0.1f;
-
 
     [Header("Movement Targets")]
 
@@ -236,7 +236,7 @@ public class GenericTennisGuyBehaviour : MonoBehaviour
 
     // actions //
 
-    public void Swing(Target target = Target.None)
+    public void TrySwing(Target target = Target.None)
     {
         if(Time.time < GetNextTimeCanSwing())
         {
@@ -275,28 +275,31 @@ public class GenericTennisGuyBehaviour : MonoBehaviour
     }
     
     
-    public bool AreSwingConditionsMet()
+    public bool AreSwingConditionsMet(out float distanceFromCollider)
     {
+        distanceFromCollider = -1f;
+
         if(!m_isSwinging) return false;
     
-        return GameController.Instance.Ball.WouldBeHitIfGuySwung(this);
+        return GameController.Instance.Ball.WouldBeHitIfGuySwung(this, out distanceFromCollider);
     }
 
     public void HitBallToTargetIfSwingConditionsAreMet(Transform newTarget)
     {
-        if (AreSwingConditionsMet())
+        if (AreSwingConditionsMet(out float distanceFromCollider))
         {
-            ForceHitBall(newTarget);
+            ForceHitBall(newTarget, distanceFromCollider);
         }
     }
 
     /// <summary>
     /// skips AreSwingConditionsMet() check and simply assumes the ball is hit
     /// </summary>
-    public void ForceHitBall(Transform newTarget)
+    public void ForceHitBall(Transform newTarget, float ballTeleportDistance)
     {
         BallBehaviour ball = GameController.Instance.Ball;
 
+        ball.StepInCurrentDirection(ballTeleportDistance);
         ball.HitToTarget(newTarget);
     }
 }
