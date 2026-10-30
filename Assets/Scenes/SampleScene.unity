@@ -428,6 +428,7 @@ Transform:
   m_Children:
   - {fileID: 1459648139}
   - {fileID: 1730506810}
+  - {fileID: 1913963161}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &265132765
@@ -447,26 +448,37 @@ MonoBehaviour:
   m_opponent: {fileID: 1306753761}
   m_ball: {fileID: 446884696}
   m_loseScreen: {fileID: 1730506812}
+  m_timer: {fileID: 1913963160}
   m_centerLineHorizontal: -0.67
   m_hitstopDurationRemainingBeforeOpponentMoves: 0.5
   m_swingHitboxLayer: 3
   m_gameOverVerticalBoundary: -9
-  impactSpeedRange: {x: 12, y: 200}
+  numHitsToWin: 35
+  impactSpeedRange: {x: 12, y: 500}
   impactDurationCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0.05
-      inSlope: 2
-      outSlope: 2
+      inSlope: 3.4914293
+      outSlope: 3.4914293
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.06944444
     - serializedVersion: 3
-      time: 0.65
-      value: 1.1
+      time: 0.2
+      value: 0.7
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.3
+      value: 0.7
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -475,7 +487,7 @@ MonoBehaviour:
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
-      value: 1.1
+      value: 0.5
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -491,15 +503,15 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0.8756963
-      outSlope: 0.8756963
+      inSlope: 1.5714285
+      outSlope: 1.5714285
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.10744399
+      outWeight: 0.083333336
     - serializedVersion: 3
-      time: 0.5
-      value: 0.35
+      time: 0.2
+      value: 0.25
       inSlope: 0.18402691
       outSlope: 0.18402691
       tangentMode: 0
@@ -510,6 +522,11 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   m_debugAutoMovePlayer: 0
+  finalHitImpactDuration: 0.3
+  finalHitOpponentTimeStopDuration: 0.5
+  finalHitImpactOpponentTimeScale: 0
+  finalHitScreenShakeMagnitude: 0.35
+  ballPostHitTarget: {x: 0, y: 10, z: 0}
 --- !u!1 &266364292
 GameObject:
   m_ObjectHideFlags: 0
@@ -656,18 +673,21 @@ MonoBehaviour:
     ballSpeed: 0
   - numHits: 1
     ballSpeed: 12
+  - numHits: 3
+    ballSpeed: 16
   - numHits: 5
     ballSpeed: 20
-  - numHits: 15
+  - numHits: 13
     ballSpeed: 50
   - numHits: 21
     ballSpeed: 100
   - numHits: 25
     ballSpeed: 200
-  - numHits: 31
+  - numHits: 27
+    ballSpeed: 350
+  - numHits: 29
     ballSpeed: 500
-  - numHits: 33
-    ballSpeed: 5000
+  m_currentNumHits: 0
   m_currentBallSpeed: 0
 --- !u!61 &446884697
 BoxCollider2D:
@@ -1141,6 +1161,121 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &703349509
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 703349512}
+  - component: {fileID: 703349511}
+  - component: {fileID: 703349510}
+  m_Layer: 0
+  m_Name: realistic_explosion
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!95 &703349510
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 703349509}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3db8f6eb513b4ba4b89ca6cb16b0d50c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!212 &703349511
+SpriteRenderer:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 703349509}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 126
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: -1007837591, guid: b259c6587d1098f4aa4e4c26d2f5d8d2, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.71, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
+--- !u!4 &703349512
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 703349509}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2.85, y: 2.85, z: 2.85}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 1306753760}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &835735617
 GameObject:
   m_ObjectHideFlags: 0
@@ -1369,6 +1504,8 @@ MonoBehaviour:
   m_swingUpTriggerName: 
   m_swingDownTriggerName: 
   m_swingStraightTriggerName: 
+  explosionAnimator: {fileID: 0}
+  m_explosionTriggerKey: 
   m_upActionName: Up
   m_downActionName: Down
   m_hitActionName: Hit
@@ -1437,6 +1574,7 @@ Transform:
   - {fileID: 92111346}
   - {fileID: 1859840838}
   - {fileID: 1256327766}
+  - {fileID: 703349512}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1306753761
@@ -1461,6 +1599,8 @@ MonoBehaviour:
   m_swingUpTriggerName: swing_up
   m_swingDownTriggerName: swing_down
   m_swingStraightTriggerName: swing_straight
+  explosionAnimator: {fileID: 703349510}
+  m_explosionTriggerKey: explode
 --- !u!95 &1306753762
 Animator:
   serializedVersion: 7
@@ -1987,7 +2127,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 24
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.4198113, g: 1, b: 0.5383013, a: 1}
@@ -2038,12 +2178,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1913963159}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.12, y: 4.23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 265132764}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1983443828
 GameObject:
@@ -2284,12 +2424,11 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 619394802}
+  - {fileID: 613560319}
+  - {fileID: 1985291365}
   - {fileID: 265132764}
   - {fileID: 446884695}
   - {fileID: 835735618}
   - {fileID: 266364294}
   - {fileID: 1157467232}
   - {fileID: 1306753760}
-  - {fileID: 1913963161}
-  - {fileID: 613560319}
-  - {fileID: 1985291365}

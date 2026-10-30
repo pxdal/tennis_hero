@@ -21,7 +21,11 @@ public class BallBehaviour : MonoBehaviour
 
     [Header("Debug")]
 
-    // NOTE: don't remove, even though vs code says to.  used for debugging
+    // NOTE: don't remove either of these, even though vs code says to.  used for debugging
+
+    [ReadOnly]
+    [SerializeField] private int m_currentNumHits;
+
     [ReadOnly]
     [SerializeField] private float m_currentBallSpeed;
 
@@ -129,6 +133,7 @@ public class BallBehaviour : MonoBehaviour
 
     void Update()
     {
+        m_currentNumHits = GetCurrentNumberOfHits();
         m_currentBallSpeed = GetCurrentFlySpeed();
     }
     
@@ -164,9 +169,21 @@ public class BallBehaviour : MonoBehaviour
         m_numHits++;
     }
 
+    public void HitToTarget(Vector3 newTargetPosition)
+    {
+        SetCurrentDirectionFromTargetPosition(newTargetPosition);
+
+        m_numHits++;
+    }
+
+    public void ResetHits()
+    {
+        m_numHits = 0;    
+    }
+
     public void Reset()
     {
-        m_numHits = 0;
+        ResetHits();
         m_currentDirection = Vector3.zero;
         transform.position = m_positionAtStart;
         Unfreeze();

@@ -58,6 +58,13 @@ public class GenericTennisGuyBehaviour : MonoBehaviour
     [AnimatorParam("animator")]
     [SerializeField] private string m_swingStraightTriggerName;
 
+    [Space(10)]
+
+    public Animator explosionAnimator;
+
+    [AnimatorParam("explosionAnimator")]
+    [SerializeField] private string m_explosionTriggerKey;
+
 
     // private //
     
@@ -235,6 +242,16 @@ public class GenericTennisGuyBehaviour : MonoBehaviour
     }
 
     // actions //
+
+    public void Explode()
+    {
+        // TODO: this is nasty.  using the same trigger key as the explosion animator 
+        // (they should be named the same anyways, but this will cause bugs if I ever mess that up)
+        animator.SetTrigger(m_explosionTriggerKey);
+
+        if(explosionAnimator != null) explosionAnimator.SetTrigger(m_explosionTriggerKey);
+    }
+
 
     public void TrySwing(Target target = Target.None)
     {
