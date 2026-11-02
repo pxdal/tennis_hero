@@ -521,7 +521,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_debugAutoMovePlayer: 1
+  m_debugAutoMovePlayer: 0
   finalHitImpactDuration: 0.3
   finalHitOpponentTimeStopDuration: 0.5
   finalHitImpactOpponentTimeScale: 0
