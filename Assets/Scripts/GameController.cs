@@ -143,6 +143,14 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public float GameOverVerticalBoundary
+    {
+        get
+        {
+            return m_gameOverVerticalBoundary;
+        }
+    }
+
 
     // event listeners //
 

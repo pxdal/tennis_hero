@@ -43,6 +43,8 @@ public class BallBehaviour : MonoBehaviour
 
     private readonly List<float> m_ballSpeedFullTable = new();
 
+    private float m_maxFlySpeed;
+
     // getters + setters //
     
     public bool IsFrozen()
@@ -115,6 +117,11 @@ public class BallBehaviour : MonoBehaviour
         int t_numHits = GetCurrentNumberOfHits();
 
         return GetFlySpeedAtNumHits(t_numHits);
+    }
+
+    public float GetMaxFlySpeed()
+    {
+        return m_maxFlySpeed;
     }
 
     // event listeners //
@@ -210,6 +217,8 @@ public class BallBehaviour : MonoBehaviour
             m_ballSpeedFullTable.Add(t_speed);
 
             t_last = t_index;
+
+            m_maxFlySpeed = Mathf.Max(m_maxFlySpeed, t_speed);
         }
     }
 
