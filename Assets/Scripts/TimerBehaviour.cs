@@ -1,16 +1,16 @@
 using System;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class TimerBehaviour : MonoBehaviour
 {
-    public Text timerText;
+    public TMP_Text timerText;
 
     private float m_startTime = -1f;
 
     void Start()
     {
-        timerText.text = "0.0s";    
+        timerText.text = "0.00";    
     }
 
     public void StartTiming()
@@ -39,7 +39,7 @@ public class TimerBehaviour : MonoBehaviour
             float elapsed = Time.time - m_startTime;
             float rounded = (float)Math.Round(elapsed, 2);
 
-            timerText.text = $"{rounded:0.00}s";
+            timerText.text = $"{rounded:0.00}";
         }
     }
 }
