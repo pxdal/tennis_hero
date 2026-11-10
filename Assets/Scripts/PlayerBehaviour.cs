@@ -26,10 +26,10 @@ public class PlayerBehaviour : GenericTennisGuyBehaviour
 
     public override void Update()
     {
-        base.Update();
-        
         CheckMoveInputsAndSetTarget();
         CheckSwingInput();
+        
+        base.Update();
     }
 
 
