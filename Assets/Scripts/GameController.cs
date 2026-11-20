@@ -1,5 +1,6 @@
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Events;
 
 
 public class GameController : MonoBehaviour
@@ -23,6 +24,7 @@ public class GameController : MonoBehaviour
 
     public enum GameState
     {
+        InMenu,
         Playing,
         Lose,
         FinalHitImpactOpponent,
@@ -92,6 +94,9 @@ public class GameController : MonoBehaviour
     [Tooltip("Which way the ball goes after the final impact")]
     public Vector3 ballPostHitTarget = Vector3.up;
 
+    [Space(10)]
+
+    public UnityEvent onFirstGameStart;
 
     // public properties //
 
@@ -167,7 +172,7 @@ public class GameController : MonoBehaviour
     private HitstopManager m_currentImpactFrameManager = null;
     private bool m_isHitstopTriggered = false;
 
-    private GameState m_currentGameState = GameState.Playing;
+    private GameState m_currentGameState = GameState.InMenu;
 
     public GameState GetCurrentGameState()
     {
@@ -176,7 +181,10 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        if(m_currentGameState == GameState.Playing)
+        if(m_currentGameState == GameState.InMenu)
+        {
+            
+        } else if(m_currentGameState == GameState.Playing)
         {
             PlayStateUpdate();
         } else if(m_currentGameState == GameState.Lose)
@@ -189,6 +197,11 @@ public class GameController : MonoBehaviour
         
     }
     
+    void MenuUpdate()
+    {
+        
+    }
+
     void PlayStateUpdate()
     {
         if(m_currentImpactFrameManager != null)
