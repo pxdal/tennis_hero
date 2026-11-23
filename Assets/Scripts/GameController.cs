@@ -172,7 +172,8 @@ public class GameController : MonoBehaviour
     private HitstopManager m_currentImpactFrameManager = null;
     private bool m_isHitstopTriggered = false;
 
-    private GameState m_currentGameState = GameState.InMenu;
+    // private GameState m_currentGameState = GameState.InMenu;
+    private GameState m_currentGameState = GameState.Playing;
 
     public GameState GetCurrentGameState()
     {

@@ -490,12 +490,15 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_debugAutoMovePlayer: 0
+  m_debugAutoMovePlayer: 1
   finalHitImpactDuration: 0.3
   finalHitOpponentTimeStopDuration: 0.5
   finalHitImpactOpponentTimeScale: 0
   finalHitScreenShakeMagnitude: 0.35
   ballPostHitTarget: {x: 0, y: 10, z: 0}
+  onFirstGameStart:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &266364292
 GameObject:
   m_ObjectHideFlags: 0
