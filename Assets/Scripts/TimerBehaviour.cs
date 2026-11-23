@@ -16,11 +16,11 @@ public class TimerBehaviour : MonoBehaviour
     public Color green;
     public float greenTime = 0.2f;
 
-
-    private float m_startTime = -1f;
+    public float internalTimeScale = 1f;
 
     private float m_bestTime = 0f;
 
+    private float m_currentTime = -1f;
 
     private bool m_allowTwenty = false;
 
@@ -67,18 +67,16 @@ public class TimerBehaviour : MonoBehaviour
 
     public float GetCurrentTime()
     {
-        if(m_startTime < 0) return 0;
+        if(m_currentTime < 0) return 0;
 
-        float elapsed = Time.time - m_startTime;
+        float elapsed = m_currentTime;
 
-        // never let time naturally flow past 20
-        // 
         if(!m_allowTwenty && elapsed >= 20)
         {
             elapsed = 19.95f;
         }
         
-        return elapsed;
+        return (float)Math.Round(elapsed, 2);
     }
 
     public void StartTiming()
@@ -92,14 +90,14 @@ public class TimerBehaviour : MonoBehaviour
 
         if(curTime > m_bestTime) SetNewBestTime(curTime);
 
-        m_startTime = -1f;
+        m_currentTime = -1f;
     }
 
     public void SetTime(float time)
     {
         if(time >= 20) m_allowTwenty = true;
 
-        m_startTime = Time.time - time;
+        m_currentTime = time;
         Update();
     }
 
@@ -118,7 +116,7 @@ public class TimerBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(m_startTime > 0)
+        if(m_currentTime >= 0)
         {
             float elapsed = GetCurrentTime();
 
@@ -126,5 +124,7 @@ public class TimerBehaviour : MonoBehaviour
         }
 
         SetRawText(m_bestTime, bestTimeText);
+
+        if(m_currentTime >= 0) m_currentTime += Time.deltaTime * internalTimeScale;
     }
 }

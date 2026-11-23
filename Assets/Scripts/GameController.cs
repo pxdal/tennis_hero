@@ -199,6 +199,18 @@ public class GameController : MonoBehaviour
         return m_currentGameState;
     }
 
+    public float GetCurrentImpactDuration()
+    {
+        float t_p = m_ball.GetCurrentFlySpeed().MapClamped(impactSpeedRange, new(0, 1));
+
+        if(m_ball.GetCurrentNumberOfHits() == numHitsToWin)
+        {
+            return finalHitImpactDuration;
+        }
+
+        return impactDurationCurve.Evaluate(t_p);
+    }
+
     void Update()
     {
         if(m_currentGameState == GameState.Playing)
@@ -251,6 +263,17 @@ public class GameController : MonoBehaviour
                     {
                         // nail that suckah
                         target = m_opponent.GetCurrentMoveTargetTransform();
+                    } else if(t_numHits == numHitsToWin - 3)
+                    {   
+                        // on the second to last hit, scale the timer so that it doesn't go over 20
+                        
+                        // NOTE: assume that the next hit has the same duration as well
+                        // also eyeball the flight speed (overestimate is better)
+                        float timeLeft = GetCurrentImpactDuration()*2 + finalHitImpactDuration + 0.1f;
+                        
+                        float timerTimeLeft = 20 - m_timer.GetCurrentTime();
+
+                        m_timer.internalTimeScale = Mathf.Min(1, timerTimeLeft / timeLeft);  
                     } else if(t_numHits == 0)
                     {
                         if (!m_hasGameStartedEver)
@@ -401,17 +424,9 @@ public class HitstopManager
             m_isDone = true;
         } else
         {
+            m_impactDuration = gameController.GetCurrentImpactDuration();
             
             float t_p = ball.GetCurrentFlySpeed().MapClamped(gameController.impactSpeedRange, new(0, 1));
-
-            if(ball.GetCurrentNumberOfHits() == gameController.numHitsToWin)
-            {
-                m_impactDuration = gameController.finalHitImpactDuration;
-            } else
-            {
-                m_impactDuration = gameController.impactDurationCurve.Evaluate(t_p);
-            }
-
             float t_screenShakeMagnitude = gameController.screenShakeCurve.Evaluate(t_p);
 
             gameController.ScreenShakeManager.Shake(t_screenShakeMagnitude);
