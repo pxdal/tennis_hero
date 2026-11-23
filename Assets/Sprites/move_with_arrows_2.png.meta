@@ -1,0 +1,600 @@
+fileFormatVersion: 2
+guid: c97046f8aa508c747876df93dbda48f8
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2821047124158051828
+    second: move_with_arrows_2_0
+  - first:
+      213: -4461180447243972216
+    second: move_with_arrows_2_1
+  - first:
+      213: 6204714026207444916
+    second: move_with_arrows_2_2
+  - first:
+      213: 8522975514089013149
+    second: move_with_arrows_2_3
+  - first:
+      213: 5299770000824718550
+    second: move_with_arrows_2_4
+  - first:
+      213: 4636383827253614420
+    second: move_with_arrows_2_5
+  - first:
+      213: 7795837001506676056
+    second: move_with_arrows_2_6
+  - first:
+      213: 6846838017599905472
+    second: move_with_arrows_2_7
+  - first:
+      213: -2698297095589474970
+    second: move_with_arrows_2_8
+  - first:
+      213: 3359174329555985674
+    second: move_with_arrows_2_9
+  - first:
+      213: -4414018042344658504
+    second: move_with_arrows_2_10
+  - first:
+      213: -6335818528742257969
+    second: move_with_arrows_2_11
+  - first:
+      213: 5516635818300566214
+    second: move_with_arrows_2_12
+  - first:
+      213: 5271026160748248471
+    second: move_with_arrows_2_13
+  - first:
+      213: -1942068307293670973
+    second: move_with_arrows_2_14
+  - first:
+      213: -2724185733069395821
+    second: move_with_arrows_2_15
+  - first:
+      213: -5605927926543692866
+    second: move_with_arrows_2_16
+  - first:
+      213: 5227271235171920142
+    second: move_with_arrows_2_17
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 60
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: move_with_arrows_2_0
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 55
+        width: 40
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f5f312b96f562720800000000000000
+      internalID: 2821047124158051828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_with_arrows_2_1
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 72
+        width: 27
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 881da130504b612c0800000000000000
+      internalID: -4461180447243972216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_with_arrows_2_2
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 72
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bf7af868829b1650800000000000000
+      internalID: 6204714026207444916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_with_arrows_2_3
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 72
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9fb0aac211b74670800000000000000
+      internalID: 8522975514089013149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_with_arrows_2_4
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 69
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d4dd628cb09c8940800000000000000
+      internalID: 5299770000824718550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_with_arrows_2_5
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 51
+        width: 27
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45751d9b68eb75040800000000000000
+      internalID: 4636383827253614420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_with_arrows_2_6
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 54
+        width: 8
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85dd6a1e270603c60800000000000000
+      internalID: 7795837001506676056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_with_arrows_2_7
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 53
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ce9ea1a6ead40f50800000000000000
+      internalID: 6846838017599905472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_with_arrows_2_8
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 17
+        width: 38
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66dcbe67619bd8ad0800000000000000
+      internalID: -2698297095589474970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_with_arrows_2_9
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 34
+        width: 15
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a05abcb414f2e9e20800000000000000
+      internalID: 3359174329555985674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_with_arrows_2_10
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 34
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b9a1e91af14eb2c0800000000000000
+      internalID: -4414018042344658504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_with_arrows_2_11
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 33
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fcacaf0ed96a218a0800000000000000
+      internalID: -6335818528742257969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_with_arrows_2_12
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 33
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ca60016c070f8c40800000000000000
+      internalID: 5516635818300566214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_with_arrows_2_13
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 32
+        width: 20
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79db039bd52762940800000000000000
+      internalID: 5271026160748248471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_with_arrows_2_14
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 15
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c1773ef9236c05e0800000000000000
+      internalID: -1942068307293670973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_with_arrows_2_15
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 15
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3982636528fb13ad0800000000000000
+      internalID: -2724185733069395821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_with_arrows_2_16
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 8
+        width: 16
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebbcbe5904eb332b0800000000000000
+      internalID: -5605927926543692866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_with_arrows_2_17
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 12
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e092a0d3e7ffa8840800000000000000
+      internalID: 5227271235171920142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      move_with_arrows_2_0: 2821047124158051828
+      move_with_arrows_2_1: -4461180447243972216
+      move_with_arrows_2_10: -4414018042344658504
+      move_with_arrows_2_11: -6335818528742257969
+      move_with_arrows_2_12: 5516635818300566214
+      move_with_arrows_2_13: 5271026160748248471
+      move_with_arrows_2_14: -1942068307293670973
+      move_with_arrows_2_15: -2724185733069395821
+      move_with_arrows_2_16: -5605927926543692866
+      move_with_arrows_2_17: 5227271235171920142
+      move_with_arrows_2_2: 6204714026207444916
+      move_with_arrows_2_3: 8522975514089013149
+      move_with_arrows_2_4: 5299770000824718550
+      move_with_arrows_2_5: 4636383827253614420
+      move_with_arrows_2_6: 7795837001506676056
+      move_with_arrows_2_7: 6846838017599905472
+      move_with_arrows_2_8: -2698297095589474970
+      move_with_arrows_2_9: 3359174329555985674
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

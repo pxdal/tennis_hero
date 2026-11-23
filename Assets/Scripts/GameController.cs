@@ -1,3 +1,4 @@
+using System.Collections;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Events;
@@ -24,7 +25,6 @@ public class GameController : MonoBehaviour
 
     public enum GameState
     {
-        InMenu,
         Playing,
         Lose,
         FinalHitImpactOpponent,
@@ -34,7 +34,7 @@ public class GameController : MonoBehaviour
 
     // serialized fields //
 
-    [Header("Components")]
+    [Header("Public Components")]
 
     [SerializeField] private ScreenShakeManager m_screenShakeManager;
 
@@ -44,6 +44,20 @@ public class GameController : MonoBehaviour
     [SerializeField] private LoseScreenBehaviour m_loseScreen;
 
     [SerializeField] private TimerBehaviour m_timer;
+
+    // [Header("Misc. Components")]
+
+    // [SerializeField] private Animator m_titleHeader;
+
+    // [AnimatorParam("m_titleHeader")]
+    // [SerializeField] private string m_titleMoveUpTrigger;
+
+    // [Space(10)]
+
+    // [SerializeField] private Animator m_timerAnimator;
+
+    // [AnimatorParam("m_timerAnimator")]
+    // [SerializeField] private string m_timerSlideInTrigger;
 
     [Header("General Settings")]
 
@@ -89,6 +103,8 @@ public class GameController : MonoBehaviour
 
     public float finalHitScreenShakeMagnitude = 1f;
 
+    public float winDelay = 0.25f;
+
     [Space(10)]
 
     [Tooltip("Which way the ball goes after the final impact")]
@@ -97,6 +113,8 @@ public class GameController : MonoBehaviour
     [Space(10)]
 
     public UnityEvent onFirstGameStart;
+
+    public UnityEvent onTwentySecondWin;
 
     // public properties //
 
@@ -172,8 +190,9 @@ public class GameController : MonoBehaviour
     private HitstopManager m_currentImpactFrameManager = null;
     private bool m_isHitstopTriggered = false;
 
-    // private GameState m_currentGameState = GameState.InMenu;
     private GameState m_currentGameState = GameState.Playing;
+
+    private bool m_hasGameStartedEver = false;
 
     public GameState GetCurrentGameState()
     {
@@ -182,10 +201,7 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        if(m_currentGameState == GameState.InMenu)
-        {
-            
-        } else if(m_currentGameState == GameState.Playing)
+        if(m_currentGameState == GameState.Playing)
         {
             PlayStateUpdate();
         } else if(m_currentGameState == GameState.Lose)
@@ -198,11 +214,6 @@ public class GameController : MonoBehaviour
         
     }
     
-    void MenuUpdate()
-    {
-        
-    }
-
     void PlayStateUpdate()
     {
         if(m_currentImpactFrameManager != null)
@@ -242,6 +253,12 @@ public class GameController : MonoBehaviour
                         target = m_opponent.GetCurrentMoveTargetTransform();
                     } else if(t_numHits == 0)
                     {
+                        if (!m_hasGameStartedEver)
+                        {
+                            onFirstGameStart.Invoke();
+                            m_hasGameStartedEver = true;
+                        }
+
                         // first hit, start timer
                         m_timer.StartTiming();
                     }
@@ -328,6 +345,7 @@ public class GameController : MonoBehaviour
 
     public void ResetGame()
     {
+        m_timer.SetText(0.0f);  
         m_player.Reset();
         m_opponent.Reset();
         m_ball.Reset();
@@ -442,6 +460,8 @@ public class PlayerWinManager
 
     private float m_startTime = -1f;
 
+    private bool m_exploded = false;
+
     private bool m_isDone = false;
 
     public PlayerWinManager(GameController gameController, GenericTennisGuyBehaviour winner, GenericTennisGuyBehaviour loser)
@@ -479,25 +499,38 @@ public class PlayerWinManager
     {
         if(IsDone()) return;
 
-        
         // NOTE: the ball still needs to be frozen or else it goes offscreen for a frame
         // ('cause deltaTime is already calculated when we set timeScale to zero, and doesn't update till next frame)
-        gameController.Ball.Freeze();
+        if(!m_exploded) gameController.Ball.Freeze();
 
-        if(Time.unscaledTime - m_startTime > gameController.finalHitOpponentTimeStopDuration)
+        float timeSinceStart = Time.unscaledTime - m_startTime;
+
+        if(timeSinceStart > gameController.finalHitOpponentTimeStopDuration)
         {
-            // play final explosion
-            Time.timeScale = 1f;
+            if (!m_exploded)
+            {
+                // play final explosion
+                Time.timeScale = 1f;
 
-            gameController.ScreenShakeManager.Shake(gameController.finalHitScreenShakeMagnitude);
-            
-            gameController.Ball.Unfreeze();
-            gameController.Ball.ResetHits();
-            gameController.Ball.HitToTarget(gameController.ballPostHitTarget);
+                gameController.ScreenShakeManager.Shake(gameController.finalHitScreenShakeMagnitude);
+                
+                gameController.Ball.Unfreeze();
+                gameController.Ball.ResetHits();
+                gameController.Ball.HitToTarget(gameController.ballPostHitTarget);
 
-            loser.Explode();
+                loser.Explode();
 
-            m_isDone = true;
+                m_exploded = true;
+            } else
+            {
+                if(timeSinceStart > gameController.finalHitOpponentTimeStopDuration + gameController.winDelay)
+                {
+                    gameController.onTwentySecondWin.Invoke();
+
+                    m_isDone = true;
+                }
+            }
         }
+
     }
 }

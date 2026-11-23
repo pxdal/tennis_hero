@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -6,11 +7,78 @@ public class TimerBehaviour : MonoBehaviour
 {
     public TMP_Text timerText;
 
+    public TMP_Text bestTimeText;
+    public TMP_Text bestTimeTextLabel;
+
+    [Header("GREEN Settings")]
+
+    public Color normal;
+    public Color green;
+    public float greenTime = 0.2f;
+
+
     private float m_startTime = -1f;
+
+    private float m_bestTime = 0f;
+
+
+    private bool m_allowTwenty = false;
 
     void Start()
     {
         timerText.text = "0.00";    
+    }
+
+    public void SetNewBestTime(float time)
+    {
+        m_bestTime = time;
+
+        // green
+        StartCoroutine(WhatIsWrongWithYouWhyAreYouGreen());
+    }
+
+    IEnumerator WhatIsWrongWithYouWhyAreYouGreen()
+    {
+        Color baseColor = green;
+        Color endColor = normal;
+
+        bestTimeText.color = baseColor;
+        bestTimeTextLabel.color = baseColor;
+
+        float startTime = Time.time;
+        float endTime = startTime + greenTime;
+
+        while(Time.time < endTime)
+        {
+            Color newColor = Color.Lerp(baseColor, endColor, (Time.time - startTime) / greenTime);
+
+            bestTimeText.color = newColor;
+            bestTimeTextLabel.color = newColor;
+
+            yield return null;
+        }
+
+        
+        bestTimeText.color = endColor;
+        bestTimeTextLabel.color = endColor;
+
+        yield return null;
+    }
+
+    public float GetCurrentTime()
+    {
+        if(m_startTime < 0) return 0;
+
+        float elapsed = Time.time - m_startTime;
+
+        // never let time naturally flow past 20
+        // 
+        if(!m_allowTwenty && elapsed >= 20)
+        {
+            elapsed = 19.95f;
+        }
+        
+        return elapsed;
     }
 
     public void StartTiming()
@@ -20,15 +88,31 @@ public class TimerBehaviour : MonoBehaviour
 
     public void StopTiming()
     {
-        m_startTime = -1f;
+        float curTime = GetCurrentTime();
 
-        // NOTE: explicitly don't Update() so that old time persists
+        if(curTime > m_bestTime) SetNewBestTime(curTime);
+
+        m_startTime = -1f;
     }
 
     public void SetTime(float time)
     {
+        if(time >= 20) m_allowTwenty = true;
+
         m_startTime = Time.time - time;
         Update();
+    }
+
+    void SetRawText(float time, TMP_Text text)
+    {
+        float rounded = (float)Math.Round(time, 2);
+        
+        text.text = $"{rounded:0.00}";
+    }
+
+    public void SetText(float time)
+    {
+        SetRawText(time, timerText);
     }
 
     // Update is called once per frame
@@ -36,10 +120,11 @@ public class TimerBehaviour : MonoBehaviour
     {
         if(m_startTime > 0)
         {
-            float elapsed = Time.time - m_startTime;
-            float rounded = (float)Math.Round(elapsed, 2);
+            float elapsed = GetCurrentTime();
 
-            timerText.text = $"{rounded:0.00}";
+            SetText(elapsed);
         }
+
+        SetRawText(m_bestTime, bestTimeText);
     }
 }

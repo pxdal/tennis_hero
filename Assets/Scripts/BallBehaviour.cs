@@ -19,6 +19,14 @@ public class BallBehaviour : MonoBehaviour
     [Tooltip("Key is number of hits, value is ball speed.  Any that don't have a value use the ball speed of the previous")]
     [SerializeField] private List<BallSpeedData> m_ballSpeeds = new();
 
+    [Header("Components")]
+
+    [SerializeField] private SpriteRenderer m_ballSprite;
+
+    [Header("Settings")]
+
+    [SerializeField] private Vector2 m_angularVelocityRange;
+
     [Header("Debug")]
 
     // NOTE: don't remove either of these, even though vs code says to.  used for debugging
@@ -44,6 +52,8 @@ public class BallBehaviour : MonoBehaviour
     private readonly List<float> m_ballSpeedFullTable = new();
 
     private float m_maxFlySpeed;
+
+    private float m_angularVelocity = 0f;
 
     // getters + setters //
     
@@ -142,6 +152,13 @@ public class BallBehaviour : MonoBehaviour
     {
         m_currentNumHits = GetCurrentNumberOfHits();
         m_currentBallSpeed = GetCurrentFlySpeed();
+
+        if (!IsFrozen())
+        {
+            Vector3 eulerAngles = m_ballSprite.transform.localEulerAngles;
+            eulerAngles.z += m_angularVelocity * Time.deltaTime * GetCurrentFlySpeed();
+            m_ballSprite.transform.localEulerAngles = eulerAngles;
+        }
     }
     
     void LateUpdate()
@@ -173,14 +190,14 @@ public class BallBehaviour : MonoBehaviour
     {
         SetCurrentDirectionFromTargetPosition(newTarget);
 
-        m_numHits++;
+        HandleHit();
     }
 
     public void HitToTarget(Vector3 newTargetPosition)
     {
         SetCurrentDirectionFromTargetPosition(newTargetPosition);
 
-        m_numHits++;
+        HandleHit();
     }
 
     public void ResetHits()
@@ -193,6 +210,7 @@ public class BallBehaviour : MonoBehaviour
         ResetHits();
         m_currentDirection = Vector3.zero;
         transform.position = m_positionAtStart;
+        transform.eulerAngles = new(0, 0, 0);
         Unfreeze();
     }
 
@@ -249,5 +267,16 @@ public class BallBehaviour : MonoBehaviour
         }
 
         return false;
+    }
+
+    void HandleHit()
+    {
+        float newAngularVelocity = UnityEngine.Random.Range(m_angularVelocityRange.x, m_angularVelocityRange.y);
+
+        float newSign = Mathf.Sign(m_angularVelocity) * -1;
+
+        m_angularVelocity = newAngularVelocity * newSign;
+
+        m_numHits++;
     }
 }

@@ -1,0 +1,548 @@
+fileFormatVersion: 2
+guid: 074adf9889c22574baadfcbe76481c7a
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2975465857535773563
+    second: swing_to_start_2_0
+  - first:
+      213: 6238810557971761489
+    second: swing_to_start_2_1
+  - first:
+      213: -1357844267791819282
+    second: swing_to_start_2_2
+  - first:
+      213: 7052780292346693057
+    second: swing_to_start_2_3
+  - first:
+      213: -3903479924050433839
+    second: swing_to_start_2_4
+  - first:
+      213: -3556171488942444515
+    second: swing_to_start_2_5
+  - first:
+      213: -7662361978204505320
+    second: swing_to_start_2_6
+  - first:
+      213: -294374153045526681
+    second: swing_to_start_2_7
+  - first:
+      213: -3474345357919854205
+    second: swing_to_start_2_8
+  - first:
+      213: -2969602983773846591
+    second: swing_to_start_2_9
+  - first:
+      213: -9218421873228133566
+    second: swing_to_start_2_10
+  - first:
+      213: 1113075805314544602
+    second: swing_to_start_2_11
+  - first:
+      213: 3446640546217100221
+    second: swing_to_start_2_12
+  - first:
+      213: -7250627358252332582
+    second: swing_to_start_2_13
+  - first:
+      213: 7899422875676530650
+    second: swing_to_start_2_14
+  - first:
+      213: 6979516829376911010
+    second: swing_to_start_2_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 60
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: swing_to_start_2_0
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 63
+        width: 39
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7b09b7ce6afa4920800000000000000
+      internalID: 2975465857535773563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: swing_to_start_2_1
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 66
+        width: 16
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1590dd8d525b49650800000000000000
+      internalID: 6238810557971761489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: swing_to_start_2_2
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 85
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eedd7f525d7f72de0800000000000000
+      internalID: -1357844267791819282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: swing_to_start_2_3
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 69
+        width: 28
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c543340f4280e160800000000000000
+      internalID: 7052780292346693057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: swing_to_start_2_4
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 66
+        width: 6
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d8ea1bc0bd04d9c0800000000000000
+      internalID: -3903479924050433839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: swing_to_start_2_5
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 66
+        width: 17
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d10b6394fd0f5aec0800000000000000
+      internalID: -3556171488942444515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: swing_to_start_2_6
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 48
+        width: 16
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81b39a4b062d9a590800000000000000
+      internalID: -7662361978204505320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: swing_to_start_2_7
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 17
+        width: 15
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7673aa8744c2aebf0800000000000000
+      internalID: -294374153045526681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: swing_to_start_2_8
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 19
+        width: 18
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 381e82a0e45a8cfc0800000000000000
+      internalID: -3474345357919854205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: swing_to_start_2_9
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 15
+        width: 19
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c34834e1d9d9c6d0800000000000000
+      internalID: -2969602983773846591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: swing_to_start_2_10
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 13
+        width: 14
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24bcb88c526911080800000000000000
+      internalID: -9218421873228133566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: swing_to_start_2_11
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 16
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad3fadf2c80727f00800000000000000
+      internalID: 1113075805314544602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: swing_to_start_2_12
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 15
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db38ab1d05de4df20800000000000000
+      internalID: 3446640546217100221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: swing_to_start_2_13
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 15
+        width: 12
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad904a845d8906b90800000000000000
+      internalID: -7250627358252332582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: swing_to_start_2_14
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 15
+        width: 7
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad75b43a04360ad60800000000000000
+      internalID: 7899422875676530650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: swing_to_start_2_15
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 3
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a61fd6c3993cd060800000000000000
+      internalID: 6979516829376911010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      swing_to_start_2_0: 2975465857535773563
+      swing_to_start_2_1: 6238810557971761489
+      swing_to_start_2_10: -9218421873228133566
+      swing_to_start_2_11: 1113075805314544602
+      swing_to_start_2_12: 3446640546217100221
+      swing_to_start_2_13: -7250627358252332582
+      swing_to_start_2_14: 7899422875676530650
+      swing_to_start_2_15: 6979516829376911010
+      swing_to_start_2_2: -1357844267791819282
+      swing_to_start_2_3: 7052780292346693057
+      swing_to_start_2_4: -3903479924050433839
+      swing_to_start_2_5: -3556171488942444515
+      swing_to_start_2_6: -7662361978204505320
+      swing_to_start_2_7: -294374153045526681
+      swing_to_start_2_8: -3474345357919854205
+      swing_to_start_2_9: -2969602983773846591
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
