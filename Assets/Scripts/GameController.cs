@@ -116,6 +116,8 @@ public class GameController : MonoBehaviour
 
     public UnityEvent onTwentySecondWin;
 
+    public UnityEvent onInfiniteMode;
+
     // public properties //
 
     public ScreenShakeManager ScreenShakeManager
@@ -194,6 +196,9 @@ public class GameController : MonoBehaviour
 
     private bool m_hasGameStartedEver = false;
 
+    [Tooltip("THIS SHOULD BE OFF BY DEFAULT")]
+    [SerializeField] private bool m_inInfiniteMode = false;
+
     public GameState GetCurrentGameState()
     {
         return m_currentGameState;
@@ -201,9 +206,9 @@ public class GameController : MonoBehaviour
 
     public float GetCurrentImpactDuration()
     {
-        float t_p = m_ball.GetCurrentFlySpeed().MapClamped(impactSpeedRange, new(0, 1));
+        float t_p = m_ball.GetCurrentFlySpeed().Map(impactSpeedRange, new(0, 1));
 
-        if(m_ball.GetCurrentNumberOfHits() == numHitsToWin)
+        if(!m_inInfiniteMode && m_ball.GetCurrentNumberOfHits() == numHitsToWin)
         {
             return finalHitImpactDuration;
         }
@@ -258,23 +263,28 @@ public class GameController : MonoBehaviour
 
                     int t_numHits = m_ball.GetCurrentNumberOfHits();
 
-                    // NOTE: minus one because we haven't hit the ball yet
-                    if(t_numHits == numHitsToWin - 1)
+                    if (!m_inInfiniteMode)
                     {
-                        // nail that suckah
-                        target = m_opponent.GetCurrentMoveTargetTransform();
-                    } else if(t_numHits == numHitsToWin - 3)
-                    {   
-                        // on the second to last hit, scale the timer so that it doesn't go over 20
-                        
-                        // NOTE: assume that the next hit has the same duration as well
-                        // also eyeball the flight speed (overestimate is better)
-                        float timeLeft = GetCurrentImpactDuration()*2 + finalHitImpactDuration + 0.1f;
-                        
-                        float timerTimeLeft = 20 - m_timer.GetCurrentTime();
+                        // NOTE: minus one because we haven't hit the ball yet
+                        if(t_numHits == numHitsToWin - 1)
+                        {
+                            // nail that suckah
+                            target = m_opponent.GetCurrentMoveTargetTransform();
+                        } else if(t_numHits == numHitsToWin - 3)
+                        {   
+                            // on the second to last hit, scale the timer so that it doesn't go over 20
+                            
+                            // NOTE: assume that the next hit has the same duration as well
+                            // also eyeball the flight speed (overestimate is better)
+                            float timeLeft = GetCurrentImpactDuration()*2 + finalHitImpactDuration + 0.1f;
+                            
+                            float timerTimeLeft = 20 - m_timer.GetCurrentTime();
 
-                        m_timer.internalTimeScale = Mathf.Min(1, timerTimeLeft / timeLeft);  
-                    } else if(t_numHits == 0)
+                            m_timer.internalTimeScale = Mathf.Min(1, timerTimeLeft / timeLeft);  
+                        }
+                    }
+                    
+                    if(t_numHits == 0)
                     {
                         if (!m_hasGameStartedEver)
                         {
@@ -323,7 +333,7 @@ public class GameController : MonoBehaviour
         
         if(m_ball.WouldBeHitIfGuySwung(swinger, out float distanceFromCollider))
         {
-            if(m_ball.GetCurrentNumberOfHits() < numHitsToWin)
+            if(m_inInfiniteMode || m_ball.GetCurrentNumberOfHits() < numHitsToWin)
             {
                 GenericTennisGuyBehaviour.Target t_swingTarget = GenericTennisGuyBehaviour.GetRandomTarget();
 
@@ -364,10 +374,22 @@ public class GameController : MonoBehaviour
     void FinalHitImpactOpponentUpdate()
     {
         m_playerWinManager.Update();
+
+        if (m_playerWinManager.IsDone())
+        {
+            // listen for infinite mode
+            if (m_loseScreen.GetResetInputAction().WasPressedThisFrame())
+            {
+                m_inInfiniteMode = true;
+                onInfiniteMode.Invoke();
+                ResetGame();
+            }
+        }
     }
 
     public void ResetGame()
     {
+        m_timer.internalTimeScale = 1.0f;
         m_timer.SetText(0.0f);  
         m_player.Reset();
         m_opponent.Reset();

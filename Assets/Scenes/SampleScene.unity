@@ -463,6 +463,15 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0
       outWeight: 0
+    - serializedVersion: 3
+      time: 1.299834
+      value: 0.30084112
+      inSlope: -0.86536866
+      outSlope: -0.86536866
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.21568516
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -575,6 +584,34 @@ MonoBehaviour:
           m_StringArgument: win
           m_BoolArgument: 0
         m_CallState: 2
+  onInfiniteMode:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2032674623}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: reset
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1306753762}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: reset
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_inInfiniteMode: 0
 --- !u!1 &266364292
 GameObject:
   m_ObjectHideFlags: 0
@@ -707,7 +744,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -230, y: 250}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 400, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &328606842
 MonoBehaviour:
@@ -929,6 +966,16 @@ MonoBehaviour:
     ballSpeed: 350
   - numHits: 29
     ballSpeed: 500
+  - numHits: 37
+    ballSpeed: 525
+  - numHits: 41
+    ballSpeed: 550
+  - numHits: 45
+    ballSpeed: 575
+  - numHits: 49
+    ballSpeed: 600
+  - numHits: 53
+    ballSpeed: 625
   m_ballSprite: {fileID: 1894895943}
   m_angularVelocityRange: {x: 43.2, y: 57.6}
   m_currentNumHits: 0
@@ -1144,7 +1191,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 460, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 400, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &512139508
 MonoBehaviour:
@@ -2050,8 +2097,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 55
-  m_fontSizeBase: 55
+  m_fontSize: 57
+  m_fontSizeBase: 57
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3276,7 +3323,7 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.1591783
+        time: 0.08940749
         value: 0.23
         inSlope: 0
         outSlope: 0
@@ -3287,11 +3334,11 @@ TrailRenderer:
       - serializedVersion: 3
         time: 1
         value: 0.02
-        inSlope: 0
-        outSlope: 0
+        inSlope: -0.37156168
+        outSlope: -0.37156168
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0
+        inWeight: 0.15673122
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2

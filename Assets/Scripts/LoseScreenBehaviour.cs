@@ -38,6 +38,11 @@ public class LoseScreenBehaviour : MonoBehaviour
         m_resetInputAction = InputSystem.actions.FindAction(m_resetInputActionName);    
     }
 
+    public InputAction GetResetInputAction()
+    {
+        return m_resetInputAction;    
+    }
+
     public bool IsShowing()
     {
         return m_isShowing;

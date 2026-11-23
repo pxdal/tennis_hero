@@ -98,7 +98,7 @@ public class TimerBehaviour : MonoBehaviour
         if(time >= 20) m_allowTwenty = true;
 
         m_currentTime = time;
-        Update();
+        UpdateTexts();
     }
 
     void SetRawText(float time, TMP_Text text)
@@ -116,6 +116,13 @@ public class TimerBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        UpdateTexts();
+
+        if(m_currentTime >= 0) m_currentTime += Time.deltaTime * internalTimeScale;
+    }
+
+    void UpdateTexts()
+    {
         if(m_currentTime >= 0)
         {
             float elapsed = GetCurrentTime();
@@ -124,7 +131,5 @@ public class TimerBehaviour : MonoBehaviour
         }
 
         SetRawText(m_bestTime, bestTimeText);
-
-        if(m_currentTime >= 0) m_currentTime += Time.deltaTime * internalTimeScale;
     }
 }
