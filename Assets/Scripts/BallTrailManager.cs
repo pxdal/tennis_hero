@@ -6,7 +6,7 @@ public class BallTrailManager : MonoBehaviour
 
     public TrailRenderer trailRenderer;
 
-    [SerializeField] private float m_minBallSpeedForTrail;
+    public float m_minBallSpeedForTrail;
 
     [SerializeField] private AnimationCurve m_trailWidthCurve;
     

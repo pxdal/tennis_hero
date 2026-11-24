@@ -90,6 +90,8 @@ public class TimerBehaviour : MonoBehaviour
 
         if(curTime > m_bestTime) SetNewBestTime(curTime);
 
+        UpdateTexts();
+        
         m_currentTime = -1f;
     }
 

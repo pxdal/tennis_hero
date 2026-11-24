@@ -25,6 +25,8 @@ public class GenericTennisGuyBehaviour : MonoBehaviour
 
     // public + serialized //
 
+    public AudioSource swinger;
+
     [Header("Swing Settings")]
 
     [SerializeField] private BoxCollider2D m_swingHitbox;

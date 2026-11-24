@@ -2,6 +2,7 @@ using System.Collections;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 
 public class GameController : MonoBehaviour
@@ -45,6 +46,8 @@ public class GameController : MonoBehaviour
 
     [SerializeField] private TimerBehaviour m_timer;
 
+    [SerializeField] private MusicManager m_musicManager;
+
     // [Header("Misc. Components")]
 
     // [SerializeField] private Animator m_titleHeader;
@@ -60,6 +63,10 @@ public class GameController : MonoBehaviour
     // [SerializeField] private string m_timerSlideInTrigger;
 
     [Header("General Settings")]
+
+    public AudioSource smallBoomer;
+
+    public AudioSource bigBoomer;
 
     [SerializeField] private float m_centerLineHorizontal;
 
@@ -82,6 +89,9 @@ public class GameController : MonoBehaviour
 
     public AnimationCurve impactDurationCurve;
 
+    public float smallBoomMinSpeed;
+
+    public float bigBoomMinSpeed;
 
     [Header("Screen Shake Settings")]
 
@@ -105,6 +115,8 @@ public class GameController : MonoBehaviour
 
     public float winDelay = 0.25f;
 
+    public float boomVolume = 0.1f;
+
     [Space(10)]
 
     [Tooltip("Which way the ball goes after the final impact")]
@@ -113,6 +125,10 @@ public class GameController : MonoBehaviour
     [Space(10)]
 
     public UnityEvent onFirstGameStart;
+    
+    public UnityEvent onGameStart;
+    
+    public UnityEvent onEnemySmackedWithBall;
 
     public UnityEvent onTwentySecondWin;
 
@@ -176,6 +192,7 @@ public class GameController : MonoBehaviour
         }
     }
 
+    private InputAction m_muteAction;
 
     // event listeners //
 
@@ -186,6 +203,8 @@ public class GameController : MonoBehaviour
         if(m_instance != null) throw new System.Exception("GameController instance already exists!");
 
         m_instance = this;
+
+        m_muteAction = InputSystem.actions.FindAction("Mute");
     }
 
     private PlayerWinManager m_playerWinManager = null;
@@ -218,6 +237,11 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
+        if (m_muteAction.WasPressedThisFrame())
+        {
+            m_musicManager.ToggleMuteUnconditionally();
+        }
+
         if(m_currentGameState == GameState.Playing)
         {
             PlayStateUpdate();
@@ -291,6 +315,8 @@ public class GameController : MonoBehaviour
                             onFirstGameStart.Invoke();
                             m_hasGameStartedEver = true;
                         }
+
+                        onGameStart.Invoke();
 
                         // first hit, start timer
                         m_timer.StartTiming();
@@ -369,6 +395,8 @@ public class GameController : MonoBehaviour
         m_playerWinManager.InitialImpact(distanceFromCollider);
 
         m_currentGameState = GameState.FinalHitImpactOpponent;
+
+        onEnemySmackedWithBall.Invoke();
     }
 
     void FinalHitImpactOpponentUpdate()
@@ -447,11 +475,21 @@ public class HitstopManager
         } else
         {
             m_impactDuration = gameController.GetCurrentImpactDuration();
-            
-            float t_p = ball.GetCurrentFlySpeed().MapClamped(gameController.impactSpeedRange, new(0, 1));
+
+            float ballSpeed = ball.GetCurrentFlySpeed();  
+
+            float t_p = ballSpeed.MapClamped(gameController.impactSpeedRange, new(0, 1));
             float t_screenShakeMagnitude = gameController.screenShakeCurve.Evaluate(t_p);
 
             gameController.ScreenShakeManager.Shake(t_screenShakeMagnitude);
+
+            if(ballSpeed >= gameController.bigBoomMinSpeed)
+            {
+                gameController.bigBoomer.Play();
+            } else if(ballSpeed >= gameController.smallBoomMinSpeed)
+            {
+                gameController.smallBoomer.Play();
+            }
         }
 
         m_hitTime = Time.time;
@@ -478,6 +516,13 @@ public class HitstopManager
 
     void Finish()
     {
+        tennisGuy.swinger.Play();
+
+        if(gameController.Ball.GetCurrentFlySpeed() >= gameController.Ball.trailManager.m_minBallSpeedForTrail)
+        {
+            gameController.Ball.whizSound.Play();    
+        }
+
         gameController.Ball.Unfreeze();
         tennisGuy.Unfreeze();
 
@@ -513,6 +558,9 @@ public class PlayerWinManager
         return m_isDone;
     }
 
+    private float m_smallBoomerVolume;
+    private float m_boomerVolume;
+
     public void InitialImpact(float distanceFromCollider)
     {
         BallBehaviour ball = gameController.Ball;
@@ -523,6 +571,10 @@ public class PlayerWinManager
         // override timer
         gameController.Timer.SetTime(20f);
         gameController.Timer.StopTiming();
+
+        m_smallBoomerVolume = gameController.smallBoomer.volume;
+        m_boomerVolume = gameController.bigBoomer.volume;
+        gameController.bigBoomer.Play();
 
         m_startTime = Time.unscaledTime;
 
@@ -555,6 +607,11 @@ public class PlayerWinManager
                 gameController.Ball.ResetHits();
                 gameController.Ball.HitToTarget(gameController.ballPostHitTarget);
 
+                gameController.bigBoomer.volume = gameController.boomVolume;
+                gameController.smallBoomer.volume = gameController.boomVolume;
+                gameController.smallBoomer.Play();
+                gameController.bigBoomer.Play();
+
                 loser.Explode();
 
                 m_exploded = true;
@@ -562,6 +619,9 @@ public class PlayerWinManager
             {
                 if(timeSinceStart > gameController.finalHitOpponentTimeStopDuration + gameController.winDelay)
                 {
+                    gameController.bigBoomer.volume = m_boomerVolume;
+                    gameController.smallBoomer.volume = m_smallBoomerVolume;
+                    
                     gameController.onTwentySecondWin.Invoke();
 
                     m_isDone = true;

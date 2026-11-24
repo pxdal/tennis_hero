@@ -23,6 +23,12 @@ public class BallBehaviour : MonoBehaviour
 
     [SerializeField] private SpriteRenderer m_ballSprite;
 
+    public BallTrailManager trailManager;
+    
+    public AudioSource hitSound;
+
+    public AudioSource whizSound;
+
     [Header("Settings")]
 
     [SerializeField] private Vector2 m_angularVelocityRange;
@@ -271,6 +277,8 @@ public class BallBehaviour : MonoBehaviour
 
     void HandleHit()
     {
+        hitSound.Play();
+
         float newAngularVelocity = UnityEngine.Random.Range(m_angularVelocityRange.x, m_angularVelocityRange.y);
 
         float newSign = Mathf.Sign(m_angularVelocity) * -1;
